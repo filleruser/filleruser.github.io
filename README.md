@@ -7,11 +7,24 @@ By: Alex Velazquez and Hamim Sadikeen
 This project implements a multiplayer version of the classic Snake game using two CC3200 microcontrollers, an OLED display, two joysticks, an ADC, an 8-ohm speaker, and AWS cloud integration. One CC3200 serves as the primary game controller, rendering the game on the OLED display and handling player movements via joysticks. The secondary CC3200 acts as a dedicated sound processor, receiving GPIO signals from the main CC3200 to generate real-time sound effects using PWM signals to drive an external speaker. Additionally, after each game session, the primary CC3200 sends a POST request to AWS, logging the game results, tracking player scores, and sending email notifications to the players.
 
 
-## Design
+## **Design**
+### Functional Specification
+![Functional Specification](https://github.com/user-attachments/assets/52846aba-d1be-49f8-88f7-4b2293053f0f)
+1. When initially powered on, a start menu graphic will be presented on the screen. The program will remain in the start stage unless the start signal is given.
+2. Once the start signal is given, the screen is cleared and the game is initialized from set starting conditions. The main game loop then begins. 
+3. Joystick positions are decoded and used as inputs for the game logic.
+4. Using the current state of the game and user inputs, the CC3200 calculates whether or not a win condition is met (states 7 and 5)
+5. If the win condition is not met, then the current frame of the game is rendered to the OLED display
+6. Values are passed to the DAC to play sound effects based on the current state of the game. Loops back to state 3 to get new user inputs. 
+7. If the win condition is met, the game enters the finish state and an end screen is shown displaying the winning player. The program will remain in this state until the restart signal is passed. If the signal is given, then the state machine moves to state 2 to reinitialize the game.
 
-Design
 
-## Implementation
+### System Architecture
+![System Architecture](https://github.com/user-attachments/assets/000ad511-ed17-49cc-b9ae-ad498d1374ed)
+
+
+
+## **Implementation**
 
 ### Joysticks/ADS1115
 
