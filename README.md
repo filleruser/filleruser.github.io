@@ -8,7 +8,8 @@ This project implements a multiplayer version of the classic Snake game using tw
 
 ## **Demo Video**
 <video width="600" controls>
-  <source src="https://github.com/user-attachments/assets/3dceec3d-aa26-4764-8034-c111ee664a37" type="video/mp4">
+<source src="https://github.com/user-attachments/assets/3dceec3d-aa26-4764-8034-c111ee664a37" type="video/mp4">
+Your browser does not support the video tag.
 </video>
 
 ## **Design**
