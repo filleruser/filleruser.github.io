@@ -22,6 +22,17 @@ This project implements a multiplayer version of the classic Snake game using tw
 ### System Architecture
 ![System Architecture](https://github.com/user-attachments/assets/000ad511-ed17-49cc-b9ae-ad498d1374ed)
 
+1. Game Logic, Display, AWS communication (Primary CC3200)
+	a. Runs the Snake game on a 128x128 OLED display with SPI commands.
+	b. Uses two joysticks (one per player) to control the snakes in multiplayer mode.
+	c. Joysticks produce analog output which the ADS1115 acts as a 4-channel ADC and communicates with the microcontroller via I2C.
+	d. Handles game logic, including collision detection, scoring, and multiplayer interactions. 
+	e. Sends RESTful api commands to the AWS server via WIFI.
+	f. Communicates with the secondary CC3200 via GPIO signals to trigger sound effects.
+2. Audio Processing (Secondary CC3200)
+   	a. Receives GPIO signals from the main CC3200 to determine which sound to play.
+   	b. Generates sound effects (e.g., eating an apple, game over/victory, movement) using PWM signals to modulate an 8-ohm speaker.
+
 
 
 ## **Implementation**
