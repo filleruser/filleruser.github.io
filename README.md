@@ -69,19 +69,19 @@ By changing the “color” parameter in the function, we were able to draw the 
 - Title Screen
 
 <img src="https://github.com/user-attachments/assets/1d0bb659-5b6b-46c3-8a40-75d31f69f4da" alt="Title Screen" width="400" height="400">
-
+\
 - Player 1 Win End Screen
 
 <img src="https://github.com/user-attachments/assets/c5da74d7-919f-4bca-8910-6cf8407b9425" alt="Player 1 Win" width="400" height="400">
-
+\
 - Player 2 Win End Screen
 
 <img src="https://github.com/user-attachments/assets/0f66d9a9-ee68-4414-8c34-c98766a77da9" alt="Player 2 Win" width="400" height="400">
-
+\
 - Tie End Screen
 
 <img src="https://github.com/user-attachments/assets/048b5a68-63de-4c76-b0c0-f1c57e2b0507" alt="Tie" width="400" height="400">
-
+\
 
 
 
