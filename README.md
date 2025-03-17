@@ -11,11 +11,6 @@ This project implements a multiplayer version of the classic Snake game using tw
   <source src="https://github.com/user-attachments/assets/3dceec3d-aa26-4764-8034-c111ee664a37" type="video/mp4">
 </video>
 
-<video controls width="640" height="360">
-    <source src="https://github.com/user-attachments/assets/3dceec3d-aa26-4764-8034-c111ee664a37" type="video/mp4">
-</video>
-
-
 ## **Design**
 ### Functional Specification
 ![Functional Specification](https://github.com/user-attachments/assets/52846aba-d1be-49f8-88f7-4b2293053f0f)
