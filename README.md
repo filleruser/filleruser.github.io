@@ -68,14 +68,19 @@ If the randomly-selected Node’s type is not zero, then it is already occupied 
 By changing the “color” parameter in the function, we were able to draw the bitmaps in 1 solid color, with a transparent background. Because we wanted the title and end screens to have multiple colors, we had to split the images into multiple parts and layer them on top of each other using multiple drawBitmap() calls. We kept each layer 128x128 pixels for simplicity’s sake. The final screens as they appear on the display are as follows:
 - Title Screen
 
-<img src="https://github.com/user-attachments/assets/868a1c43-9411-4727-bcf7-9a3b79c91f3d" alt="Title Screen" width="300" height="200">
+<img src="https://github.com/user-attachments/assets/1d0bb659-5b6b-46c3-8a40-75d31f69f4da" alt="Title Screen" width="400" height="400">
 
 - Player 1 Win End Screen
 
+<img src="https://github.com/user-attachments/assets/c5da74d7-919f-4bca-8910-6cf8407b9425" alt="Player 1 Win" width="400" height="400">
+
 - Player 2 Win End Screen
+
+<img src="https://github.com/user-attachments/assets/0f66d9a9-ee68-4414-8c34-c98766a77da9" alt="Player 2 Win" width="400" height="400">
 
 - Tie End Screen
 
+<img src="https://github.com/user-attachments/assets/048b5a68-63de-4c76-b0c0-f1c57e2b0507" alt="Tie" width="400" height="400">
 
 
 
@@ -89,13 +94,15 @@ Our incorporation of AWS into the project was identical to what we did for Lab 4
 
 The secondary CC3200 had code that used Systick for timing of the sound generation. We used the PWM example code from the driver library and used the TimerLoadSet() function to control the frequency of each tone. We used a RC low-pass filter at the output of the PWM with R=1k and C=1 nF to get rid of any high frequency noise. 
 
+![Low Pass Filter](https://github.com/user-attachments/assets/28561ad7-90f0-4192-b5fd-454776e25176)
+
 We then connected the output of the filter to an external speaker to be able to play sound. The sound effects were explicit functions that told the PWM to play a certain frequency for a specific amount of time. We also included an argument for amplitude modulation to be able to control the noise level for some tones to make the tone sound dynamic. We then continuously poll GPIO pins for high signals from the primary CC3200 and play functions according to the GPIO pin being pulled high. We initially planned for more advanced sound generation which would introduce more delay into the running of the base game. This would call for the purpose of the second CC3200 but because we are only implementing a PWM signal with short bursts of delay we believe that the on-screen lag will be negligent.
 
 
 ## Challenges
 
-  We originally planned to have more custom sound effects using a resistor ladder DAC to produce pure sine waves. We would connect the output through an Op-Amp buffer to drive an external speaker. However we did run into limitations with our board and specifically the GPIO switching speed. The DAC utilized for audio applications requires the speaker to play frequencies in the range from 20Hz - 20kHz. Nyquist's Theorem states that to accurately reproduce an audio signal, the sample rate must be at least twice the highest frequency in the signal. For example, if the maximum audible frequency is 20 kHz, the minimum sample rate would be 40 kHz. And to get GPIO switching speed, you would have to multiply the bits and the sampling rate. We attempted to use 8 bits in our DAC which would require a switching speed of 320 kHz for our GPIO pins. Though typically for most microcontrollers the GPIO pins can switch up to the MHz range, we were not able to get pins to switch faster than about 50 Hz. This would entirely prevent our audio player from working. We are still not entirely sure if this result was a hardware problem or a software problem. Further testing will be needed to investigate the true switching speed of GPIO pins which then we could reevaluate the potential of using this specific kind of DAC. With our strict deadline we decided to use the onboard PWM signals to successfully produce square waves at various frequencies to simulate arcade sounds.
-	Another challenge we met was attempting to use UART communication between boards for playing sound effects. We know that this method of communication is possible with our CC3200 boards as we have done something similar in an earlier but we ran into a problem of our UART pins not being able to produce any output. After checking the common fixes for UART such as shared ground planes and correct sysconfig we still could not get any output. We suspect that the specific pins that we used in the sysconfig cannot be actually used for UART communication. And because we were already using many pins for various other functions such as SPI, I2C and GPIO, it would have been too time consuming to switch pin assignments to different things and solve them by trial and error. Since our sound effects were not entirely sophisticated, all we needed was some signal to tell the other microcontroller to play a specific sound. We accomplished this by testing other GPIOs then using just four different pins to each control a different sound effect.
+- We originally planned to have more custom sound effects using a resistor ladder DAC to produce pure sine waves. We would connect the output through an Op-Amp buffer to drive an external speaker. However we did run into limitations with our board and specifically the GPIO switching speed. The DAC utilized for audio applications requires the speaker to play frequencies in the range from 20Hz - 20kHz. Nyquist's Theorem states that to accurately reproduce an audio signal, the sample rate must be at least twice the highest frequency in the signal. For example, if the maximum audible frequency is 20 kHz, the minimum sample rate would be 40 kHz. And to get GPIO switching speed, you would have to multiply the bits and the sampling rate. We attempted to use 8 bits in our DAC which would require a switching speed of 320 kHz for our GPIO pins. Though typically for most microcontrollers the GPIO pins can switch up to the MHz range, we were not able to get pins to switch faster than about 50 Hz. This would entirely prevent our audio player from working. We are still not entirely sure if this result was a hardware problem or a software problem. Further testing will be needed to investigate the true switching speed of GPIO pins which then we could reevaluate the potential of using this specific kind of DAC. With our strict deadline we decided to use the onboard PWM signals to successfully produce square waves at various frequencies to simulate arcade sounds.
+- Another challenge we met was attempting to use UART communication between boards for playing sound effects. We know that this method of communication is possible with our CC3200 boards as we have done something similar in an earlier but we ran into a problem of our UART pins not being able to produce any output. After checking the common fixes for UART such as shared ground planes and correct sysconfig we still could not get any output. We suspect that the specific pins that we used in the sysconfig cannot be actually used for UART communication. And because we were already using many pins for various other functions such as SPI, I2C and GPIO, it would have been too time consuming to switch pin assignments to different things and solve them by trial and error. Since our sound effects were not entirely sophisticated, all we needed was some signal to tell the other microcontroller to play a specific sound. We accomplished this by testing other GPIOs then using just four different pins to each control a different sound effect.
 
 
 ## Future Work
