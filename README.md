@@ -1,4 +1,4 @@
-# Multiplayer Snake Game with Audio and Cloud Integration: “Snake VS Snake”
+Multiplayer Snake Game with Audio and Cloud Integration: “Snake VS Snake”
 
 By: Alex Velazquez and Hamim Sadikeen
 
