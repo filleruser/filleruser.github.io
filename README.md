@@ -66,12 +66,16 @@ If the randomly-selected Node’s type is not zero, then it is already occupied 
 We drew simple 128x128 pixel graphics using Microsoft Paint and GIMP. Once we were satisfied with our art, we used the image2cpp tool to convert png files to bitmaps. We were able to display these bitmaps onto the display using the drawBitmap() function from the AdaFruit_GFX library.
 By changing the “color” parameter in the function, we were able to draw the bitmaps in 1 solid color, with a transparent background. Because we wanted the title and end screens to have multiple colors, we had to split the images into multiple parts and layer them on top of each other using multiple drawBitmap() calls. We kept each layer 128x128 pixels for simplicity’s sake. The final screens as they appear on the display are as follows:
 - Title Screen
+![Title Screen](https://github.com/user-attachments/assets/868a1c43-9411-4727-bcf7-9a3b79c91f3d)
 
 - Player 1 Win End Screen
+![Player 1 Win](https://github.com/user-attachments/assets/b5af256b-6f9a-40e5-8ffa-a5c1732204d4)
 
 - Player 2 Win End Screen
+![Player 2 Win](https://github.com/user-attachments/assets/8206c199-c2b8-49a3-b0e7-15f1383c63db)
 
 - Tie End Screen
+![Tie](https://github.com/user-attachments/assets/4a78ea0c-0bca-473b-be6c-5854170ce979)
 
 
 
