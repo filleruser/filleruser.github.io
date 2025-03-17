@@ -6,6 +6,10 @@ By: Alex Velazquez and Hamim Sadikeen
 
 This project implements a multiplayer version of the classic Snake game using two CC3200 microcontrollers, an OLED display, two joysticks, an ADC, an 8-ohm speaker, and AWS cloud integration. One CC3200 serves as the primary game controller, rendering the game on the OLED display and handling player movements via joysticks. The secondary CC3200 acts as a dedicated sound processor, receiving GPIO signals from the main CC3200 to generate real-time sound effects using PWM signals to drive an external speaker. Additionally, after each game session, the primary CC3200 sends a POST request to AWS, logging the game results, tracking player scores, and sending email notifications to the players.
 
+## **Demo Video**
+
+https://github.com/user-attachments/assets/3dceec3d-aa26-4764-8034-c111ee664a37
+
 
 ## **Design**
 ### Functional Specification
