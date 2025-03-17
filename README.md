@@ -112,6 +112,71 @@ To make the game more engaging and fun, we would consider adding more games, hig
 
 ## Bill of Materials
 
+<table border="1">
+  <thead>
+    <tr>
+      <th>Component</th>
+      <th>Quantity</th>
+      <th>Price</th>
+      <th>Obtainment</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="https://www.digikey.com/en/products/detail/texas-instruments/CC3200-LAUNCHXL/4862812?&utm_adgroup=Texas%20Instruments&utm_term=&gad_source=1">CC3200</a></td>
+      <td>2</td>
+      <td>$66.00</td>
+      <td>From lab supplies</td>
+    </tr>
+    <tr>
+      <td><a href="https://www.amazon.com/dp/B0DSZ9D9WH?psc=1&smid=ABNC1ZV0O9ATN&ref_=chk_typ_imgToDp">Joysticks</a></td>
+      <td>2</td>
+      <td>$8.80</td>
+      <td>Amazon.com</td>
+    </tr>
+    <tr>
+      <td><a href="https://www.amazon.com/HiLetgo-Converter-Programmable-Amplifier-Development/dp/B01DLHKMO2?source=ps-sl-shoppingads-lpcontext&ref_=fplfs&psc=1&smid=A30QSGOJR8LMXA&gQT=2">ADS1115</a></td>
+      <td>1</td>
+      <td>$7.99</td>
+      <td>Amazon</td>
+    </tr>
+    <tr>
+      <td><a href="https://www.amazon.com/1-5inch-RGB-OLED-Module-Communicating/dp/B07DB5YFGW?source=ps-sl-shoppingads-lpcontext&ref_=fplfs&psc=1&smid=A50C560NZEBBE&gQT=2">SSD1351 OLED</a></td>
+      <td>1</td>
+      <td>$23.99</td>
+      <td>From lab supplies</td>
+    </tr>
+    <tr>
+      <td><a href="https://www.amazon.com/Speaker-Speakers-Compatible-Loudspeaker-Player/dp/B09YGDQV3Z/ref=sr_1_3?dib=eyJ2IjoiMSJ9.5-gTee9dr0E3dA0xSDxZywREWn7rpS35zhwyI-pUOlgZvRYjW-joHN_NVQbgBKJAX93NCu61XhVDa_VAM9qkOm-R_iAALgfCViuFBtEWT4C3TGOeakzqbszQVgs2C6M2ikPyqMxdGn4s4rFyxHF_CcQKNS8sXgLgXC0SmqEAw1GjazqhUw07BYdrdeP-VtEH30DmQugPZW-t92XnXx6udKd__xRIA6Gg3nnkuYoODuiAYRiPq54KTl6UtQWW5elJUj4omvgpzQGbjTwkx8ixoKFKf-9MXVZVA3KaxMK9jPc5kG2YxZdmp-Q_5QRwzu7Y24Eqwc_Bd8N0LvjLANOTzwlXNQq981R_bcoi9ch6KwQ.UaqwL4ZPXmICLWA4M9IUno51-cJJ5L5XLeIXaNmINgM">8 Ohm Speaker</a></td>
+      <td>1</td>
+      <td>$1.00</td>
+      <td>From lab supplies</td>
+    </tr>
+    <tr>
+      <td><a href="https://www.amazon.com/Elegoo-EL-CP-004-Multicolored-Breadboard-arduino/dp/B01EV70C78/ref=sr_1_3?s=electronics&sr=1-3">Jumper Wires</a></td>
+      <td>1</td>
+      <td>$6.98</td>
+      <td>From lab supplies</td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td><strong>Total:</strong></td>
+      <td></td>
+      <td><strong>$180.76</strong></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><strong>Total excluding lab / personal supplies:</strong></td>
+      <td></td>
+      <td><strong>$16.79</strong></td>
+      <td></td>
+    </tr>
+  </tfoot>
+</table>
+
+
+
 | Component       | Quantity | Price  | Obtainment               |
 |:----------------|:---------|:-------|:-------------------------|
 | [CC3200](https://www.digikey.com/en/products/detail/texas-instruments/CC3200-LAUNCHXL/4862812?&utm_adgroup=Texas%20Instruments&utm_term=&gad_source=1) | 2 | $66.00 | From lab supplies |
