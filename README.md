@@ -1,4 +1,4 @@
-Multiplayer Snake Game with Audio and Cloud Integration: “Snake VS Snake”
+# Multiplayer Snake Game with Audio and Cloud Integration: “Snake VS Snake”
 
 By: Alex Velazquez and Hamim Sadikeen
 
@@ -124,5 +124,3 @@ To make the game more engaging and fun, we would consider adding more games, hig
 | [Jumper Wires](https://www.amazon.com/Elegoo-EL-CP-004-Multicolored-Breadboard-arduino/dp/B01EV70C78/ref=sr_1_3?s=electronics&sr=1-3) | 1 | $6.98 | From lab supplies |
 | **Total**       |          | **$180.76** |                         |
 | **Total excluding lab / personal supplies** |          | **$16.79** |                         |
-
-
