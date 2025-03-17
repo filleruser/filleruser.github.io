@@ -2,31 +2,31 @@
 
 By: Alex Velazquez and Hamim Sadikeen
 
-## 1) Description
+## Description
 
 This project implements a multiplayer version of the classic Snake game using two CC3200 microcontrollers, an OLED display, two joysticks, an ADC, an 8-ohm speaker, and AWS cloud integration. One CC3200 serves as the primary game controller, rendering the game on the OLED display and handling player movements via joysticks. The secondary CC3200 acts as a dedicated sound processor, receiving GPIO signals from the main CC3200 to generate real-time sound effects using PWM signals to drive an external speaker. Additionally, after each game session, the primary CC3200 sends a POST request to AWS, logging the game results, tracking player scores, and sending email notifications to the players.
 
 
-## 2) Design
+## Design
 
 Design
 
-## 3) Implementation
+## Implementation
 
 Implementation
 
-## 4) Challenges
+## Challenges
 
   We originally planned to have more custom sound effects using a resistor ladder DAC to produce pure sine waves. We would connect the output through an Op-Amp buffer to drive an external speaker. However we did run into limitations with our board and specifically the GPIO switching speed. The DAC utilized for audio applications requires the speaker to play frequencies in the range from 20Hz - 20kHz. Nyquist's Theorem states that to accurately reproduce an audio signal, the sample rate must be at least twice the highest frequency in the signal. For example, if the maximum audible frequency is 20 kHz, the minimum sample rate would be 40 kHz. And to get GPIO switching speed, you would have to multiply the bits and the sampling rate. We attempted to use 8 bits in our DAC which would require a switching speed of 320 kHz for our GPIO pins. Though typically for most microcontrollers the GPIO pins can switch up to the MHz range, we were not able to get pins to switch faster than about 50 Hz. This would entirely prevent our audio player from working. We are still not entirely sure if this result was a hardware problem or a software problem. Further testing will be needed to investigate the true switching speed of GPIO pins which then we could reevaluate the potential of using this specific kind of DAC. With our strict deadline we decided to use the onboard PWM signals to successfully produce square waves at various frequencies to simulate arcade sounds.
 	Another challenge we met was attempting to use UART communication between boards for playing sound effects. We know that this method of communication is possible with our CC3200 boards as we have done something similar in an earlier but we ran into a problem of our UART pins not being able to produce any output. After checking the common fixes for UART such as shared ground planes and correct sysconfig we still could not get any output. We suspect that the specific pins that we used in the sysconfig cannot be actually used for UART communication. And because we were already using many pins for various other functions such as SPI, I2C and GPIO, it would have been too time consuming to switch pin assignments to different things and solve them by trial and error. Since our sound effects were not entirely sophisticated, all we needed was some signal to tell the other microcontroller to play a specific sound. We accomplished this by testing other GPIOs then using just four different pins to each control a different sound effect.
 
 
-## 5) Future Work
+## Future Work
 
 To make the game more engaging and fun, we would consider adding more games, high-resolution sound effects, and leaderboards. Implementing a more advanced graphics library for the OLED display could allow for smoother animations and a better visual experience. Additionally, refining the joystick controls with adaptive sensitivity based on player input could improve responsiveness and gameplay feel. To make it more cost-effective, we could shrink the entirety of the game onto a single CC3200 given more development time, reducing hardware complexity and power consumption. Furthermore, optimizing the communication protocol between the microcontrollers, such as using UART or SPI instead of GPIO signaling, could enhance performance and minimize latency in multiplayer interactions. Finally, integrating cloud-based storage for persistent leaderboards and player stats would add long-term engagement and allow for remote score tracking.
 
 
-## 6) Bill of Materials
+## Bill of Materials
 | Component       | Quantity | Price  | Obtainment               |
 |----------------|----------|--------|--------------------------|
 | [CC3200](https://www.digikey.com/en/products/detail/texas-instruments/CC3200-LAUNCHXL/4862812?&utm_adgroup=Texas%20Instruments&utm_term=&gad_source=1)    | 2        | $66.00 | From lab supplies        |
