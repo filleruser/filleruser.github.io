@@ -13,7 +13,58 @@ Design
 
 ## Implementation
 
-Implementation
+### Joysticks/ADS1115
+
+The specific joysticks can be found in our project BOM. There are 6 pins on the board that we used: SDA, SCL, X-axis, Y-axis, VCC, and GND. Both X and Y axis produce variable voltages depending on the position of the respective axis. VCC and GND pins should be connected to the board 3.3V and ground respectively. The ADS1115 requires two configuration writes with I2C from the board. These register specifications can be found in the datasheet for the ADS1115. The commands that we used were "writereg 0x48 0x01 2 0xC2 0x83", and "writereg 0x48 0x00 1 0x00". The first is a basic initialization to continuous read mode, the second points the output register to the 1st output port of the ADC (A0). Keep in mind that to read from the other ports (A1-A3), you will need to write to the ADC to read from each port every time. We accomplished this by having a function that was dedicated to reading each channel individually and returning voltages. From these voltages we used threshold logic to detect whether the joystick is up/down or left/right. An important note was that there needs to be a small delay to read all the data from the ADC in each function, a quick read and process of voltages will lead to misreading of the registers.
+
+### Game Calculations and Display
+#### int snakeGame()
+
+Note: Each snake has its own copy of the variables described below. They function identically, but snake 2’s functions are called below those of snake 1. 
+
+At the heart of the game is a 32x32 array of “Node” structs. Each Node has 4 fields: TTL (time to live), xPos (the x coordinate where the Node is mapped on the screen), yPos (the y coordinate where the Node is mapped on the screen), and type (determines whether the Node represents empty space, player 1, player 2, or food). The main game logic is derived from traversing and operating on this 2d Node array. From the joystick inputs, x and y-axis index modifiers are set. These modifiers determine which element of the array will be accessed next loop iteration, or tick. For example, if the joystick were pressed up, then the x-axis modifier (xArr) will be set to 0 and the y-axis modifier (yArr) will be set to -1. This corresponds to moving one row up in the array. The program then checks the “type” field of the current Node. If it is 1 or 2, then a winner is selected depending on which snake accessed the Node and what the value of “type” is, the GPIO pin for the winning sound is set HIGH, and the game loop ends. If it is 3, then the snake which accessed the food will have its “length” and “point” values increment, and a “foodCount” variable will decrement. If the “type” is 0, then the program sets the current Node as a snake node. The TTL field is set to the value of length. xPos is set to the current i index of the array times 4 (to map to the screen). Similarly, yPos is set to the current j index times 4. The type field is set to either 1 or 2 depending on the player. Depending on the values of xArr and yArr, the GPIO pins for movement sounds are either set HIGH or LOW.
+
+Once the Node is updated, based on the type of the Node, a green or red 3x3 pixel rectangle is drawn at the (xPos, yPos) coordinate using the Adafruit_GFX() library. The xPos and yPos values will always be multiples of 4, and the slightly undersized rectangles allow for visual separation between the Nodes. This allows for the 2d array to be neatly mapped to the display. 
+
+After this, the updateNodes() and generateFood() functions are called. At the bottom of the game loop, the current points for each player are formatted and printed at the top corners of the display. The game loop then repeats. 
+
+#### void updateNodes(struct Node arr[33][33])
+
+Nested for-loops are used to iterate across every element in arr. For every index, the function checks whether type == 1 or 2 and TTL == 0, indicating that the tail of the snake has moved past the Node. The values match, then the Node’s xPos and yPos values are used to draw a 3x3 black rectangle to the display, and the type field is set to 0. Otherwise, the TTL of the Node is decremented. 
+This function is responsible for the snake updating as it moves forward.
+
+#### void generateFood(struct Node arr[33][33], int foodCount, int rand1, int rand2)
+
+The rand1 and rand2 integers are used as seeds for rand() functions. The seeds for the functions being variable helps to increase randomness. Random i and j indices (randI and randJ) are selected using these rand() functions. To determine if food needs to be generated, the function checks if the foodCount is less than 1. If it is, then a random index is selected using randI and randJ (arr[randI][randJ]) and its type is checked. If type==0, then the randomly selected index is empty and valid to become a food Node. The type of the selected Node is set to 3, the xPos and yPos fields are set to randI*4 and randJ*4, a yellow 3x3 rectangle is drawn at (xPos, yPos), and the foodCount increments. 
+If the randomly-selected Node’s type is not zero, then it is already occupied and not valid to become a food Node. In this case, the program will wait for the next game tick to retry food generation.
+
+#### Drawing Bitmap Images:
+
+We drew simple 128x128 pixel graphics using Microsoft Paint and GIMP. Once we were satisfied with our art, we used the image2cpp tool to convert png files to bitmaps. We were able to display these bitmaps onto the display using the drawBitmap() function from the AdaFruit_GFX library.
+By changing the “color” parameter in the function, we were able to draw the bitmaps in 1 solid color, with a transparent background. Because we wanted the title and end screens to have multiple colors, we had to split the images into multiple parts and layer them on top of each other using multiple drawBitmap() calls. We kept each layer 128x128 pixels for simplicity’s sake. The final screens as they appear on the display are as follows:
+	- Title Screen
+
+	- Player 1 Win End Screen
+
+	- Player 2 Win End Screen
+
+	- Tie End Screen
+
+
+
+
+
+
+### AWS Cloud
+
+Our incorporation of AWS into the project was identical to what we did for Lab 4. Once a game finished and the end screen was displayed. an email would be sent to each player about who won and for how many times they won. The only thing we updated was our “Thing” policy to be able to send emails to both players and a change on how the text is combined in JSON format.
+
+### PWM/Speaker
+
+The secondary CC3200 had code that used Systick for timing of the sound generation. We used the PWM example code from the driver library and used the TimerLoadSet() function to control the frequency of each tone. We used a RC low-pass filter at the output of the PWM with R=1k and C=1 nF to get rid of any high frequency noise. 
+
+We then connected the output of the filter to an external speaker to be able to play sound. The sound effects were explicit functions that told the PWM to play a certain frequency for a specific amount of time. We also included an argument for amplitude modulation to be able to control the noise level for some tones to make the tone sound dynamic. We then continuously poll GPIO pins for high signals from the primary CC3200 and play functions according to the GPIO pin being pulled high. We initially planned for more advanced sound generation which would introduce more delay into the running of the base game. This would call for the purpose of the second CC3200 but because we are only implementing a PWM signal with short bursts of delay we believe that the on-screen lag will be negligent.
+
 
 ## Challenges
 
